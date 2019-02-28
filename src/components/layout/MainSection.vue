@@ -17,15 +17,18 @@
         :class="article.type"
         :style="{color: article.color}"
       >
-        <span>{{article.title}}</span>
+        <component :is="article.id"></component>
       </article>
     </template>
   </section>
 </template>
 
 <script>
-import {articles} from '@/directory.js'
+import {articles, components} from '@/directory.js'
 import anime from 'animejs'
+
+console.log(components)
+
 export default {
   name: 'MainSection',
   inject: ['app'],
@@ -34,6 +37,7 @@ export default {
       articles
     }
   },
+  components,
   methods: {
     scrollTo (articleId) {
       let section = this.$refs['section']

@@ -1,7 +1,9 @@
 export const sections = []
 export const articles = []
+export const components = {}
 
 let section
+
 function addSection (sectionName, color) {
   var newSection = {
     name: sectionName,
@@ -30,12 +32,20 @@ function addArticle (title, id, component) {
     color: section.color,
     component
   })
+  components[id] = component
 }
 
 addSection('算法与数据结构', '#FF4B4B')
-addArticle('二叉树', 'a')
-addArticle('平衡二叉树', 'b')
+addArticle('平衡二叉树', 'article-avl-tree', () => import('@/components/article/AvlTree.vue'))
 
 addSection('SVG', '#FF8F42')
-addArticle('LINE', 'c')
-addArticle('PATH', 'd')
+addArticle('LINE', 'article-line', {
+  render (h) {
+    return h('div', 'article-line')
+  }
+})
+addArticle('PATH', 'article-path', {
+  render (h) {
+    return h('div', 'article-path')
+  }
+})
