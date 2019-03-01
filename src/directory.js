@@ -15,6 +15,7 @@ function addSection (sectionName, color) {
   articles.push({
     type: 'section',
     name: sectionName,
+    section,
     color
   })
 }
@@ -36,6 +37,8 @@ function addArticle (title, id, component) {
 }
 
 addSection('算法与数据结构', '#FF4B4B')
+
+addArticle('排序', 'article-sorter', () => import('@/components/article/sorter/Index.vue'))
 addArticle('平衡二叉树', 'article-avl-tree', () => import('@/components/article/AvlTree.vue'))
 
 addSection('SVG', '#FF8F42')

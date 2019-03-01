@@ -43,6 +43,10 @@ export default {
     window.addEventListener('hashchange', () => {
       this.hash = window.location.hash.substring(1)
     })
+  },
+  mounted () {
+    let hash = window.location.hash.substring(1)
+    this.$refs.MainSection.scrollTo(hash)
   }
 }
 </script>

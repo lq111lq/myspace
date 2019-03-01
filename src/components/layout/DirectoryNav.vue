@@ -31,6 +31,7 @@
 
 <script>
 import {sections} from '@/directory.js'
+
 export default {
   name: 'DirectoryNav',
   inject: ['app'],
@@ -88,7 +89,7 @@ export default {
   display: block;
   position: absolute;
   top: 4px;
-  left: 0px;
+  left: 1px;
   width: 1px;
   height: calc(100% - 8px);
   background-color: white;

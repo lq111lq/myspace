@@ -2,20 +2,20 @@
   <section ref="section">
     <template v-for="(article, i) in articles" >
       <article
+        class="section"
         v-if="article.type === 'section'"
         :key="i"
-        :class="article.type"
-        :style="{color: article.color}"
+        :style="{color: isActive(article.section) ? article.color : ''}"
       >
         <span>{{article.name}}</span>
       </article>
       <article
+        class="article"
         v-if="article.type === 'article'"
         :key="i"
         :id="article.id"
         :ref="article.id"
-        :class="article.type"
-        :style="{color: article.color}"
+        :style="{color: app.hash === article.id ? article.color : ''}"
       >
         <component :is="article.id"></component>
       </article>
@@ -39,9 +39,18 @@ export default {
   },
   components,
   methods: {
+    isActive (section) {
+      return section.articles.find((d) => {
+        return d.id === this.app.hash
+      })
+    },
     scrollTo (articleId) {
+      if (!this.$refs[articleId]) {
+        return
+      }
       let section = this.$refs['section']
       let article = this.$refs[articleId][0]
+      article.focus()
       anime({
         targets: {
           scroll: section.scrollTop
@@ -72,19 +81,43 @@ article {
   width: 100%;
   padding-left: 20px;
   padding-right: 20px;
-  border-bottom: 1px solid rgba(0,0,0,.65);
+  color: white;
+  transition: color .4s ease;
+  transition-delay: .5s;
 }
 
 article.section {
   position: sticky;
+  z-index: 10;
   background-color: #252423;
   top: 0;
   height: 60px;
   line-height: 60px;
   font-size: 16px;
+  border-bottom: 1px solid rgba(0,0,0,.65);
 }
 
 article.article {
   height: calc(100vh - 60px);
+  padding: 20px 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.article.article::-webkit-scrollbar {
+  width: 5px;
+  background-color: transparent;
+}
+
+.article.article::-webkit-scrollbar-track {
+  background-color: rgba(0,0,0,.65);
+}
+
+.article.article::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,.3);
+}
+
+.article.article::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255,255,255,.6);
 }
 </style>
