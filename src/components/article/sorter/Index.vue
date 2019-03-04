@@ -155,8 +155,10 @@ export default {
       anime({
         targets: { snapshotIndex: 0 },
         snapshotIndex: this.maxIndex,
-        duration: this.maxIndex * 100,
+        duration: this.maxIndex * 16,
+        easing: 'linear',
         update: (a) => {
+          console.log(a.animations[0].currentValue)
           this.snapshotIndex = ~~a.animations[0].currentValue
         }
       })
